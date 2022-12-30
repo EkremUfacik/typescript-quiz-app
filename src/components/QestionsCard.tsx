@@ -54,7 +54,7 @@ const QestionsCard: React.FC<Props> = ({
     <>
       {loading && <h5>Loading...</h5>}
       {!loading && (
-        <Stack>
+        <div className="d-flex flex-column w-75" style={{ maxWidth: "35rem" }}>
           <p>
             Question {questionNum + 1} / {totalQuestions}
           </p>
@@ -83,7 +83,7 @@ const QestionsCard: React.FC<Props> = ({
           {questionNum + 1 === totalQuestions && click && (
             <Button onClick={handleRestart}>Restart</Button>
           )}
-        </Stack>
+        </div>
       )}
     </>
   );

@@ -5,6 +5,7 @@ import Stack from "react-bootstrap/Stack";
 import QuestionsCard from "./components/QestionsCard";
 import Button from "react-bootstrap/esm/Button";
 import SelectArea from "./components/SelectArea";
+import { Container } from "react-bootstrap";
 
 // enum Difficulty {
 //   EASY = "easy",
@@ -15,15 +16,15 @@ import SelectArea from "./components/SelectArea";
 function App() {
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [questionNum, setQuestionNum] = useState(0);
-  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [totalQuestions, setTotalQuestions] = useState(10);
   const [loading, setLoading] = useState(false);
   const [start, setStart] = useState(false);
-  const [difficulty, setDifficulty] = useState("");
+  const [difficulty, setDifficulty] = useState("easy");
 
   const getQuiz = async (amount: number, difficulty: string) => {
     setStart(true);
     setLoading(true);
-    const url = `https://opentdb.com/api.php?amount=${totalQuestions}&difficulty=${difficulty}&type=multiple`;
+    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=multiple`;
     const res = await fetch(url);
     const data = await res.json();
     setQuestions(data.results);
@@ -38,21 +39,22 @@ function App() {
   console.log(difficulty);
 
   return (
-    <Stack>
+    <Container className="d-flex flex-column text-center gap-3 h-75 align-items-center justify-content-center bg-light ">
       <h2>QUIZ GAME</h2>
       {!start && (
-        <Stack>
+        <div className="">
           <SelectArea
             setDifficulty={setDifficulty}
             setTotalQuestions={setTotalQuestions}
           />
           <Button
+            className="mt-3"
             variant="info"
             onClick={() => getQuiz(totalQuestions, difficulty)}
           >
             Start
           </Button>
-        </Stack>
+        </div>
       )}
 
       {start && (
@@ -65,7 +67,7 @@ function App() {
           loading={loading}
         />
       )}
-    </Stack>
+    </Container>
   );
 }
 
