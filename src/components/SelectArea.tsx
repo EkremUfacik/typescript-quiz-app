@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
 interface Props {
@@ -11,6 +11,7 @@ const SelectArea: React.FC<Props> = ({ setDifficulty, setTotalQuestions }) => {
   return (
     <Stack className="mx-auto gap-3">
       <Form.Select
+        size="lg"
         aria-label="Default select example"
         onChange={(e) => setDifficulty(e.target.value)}
       >
@@ -21,6 +22,7 @@ const SelectArea: React.FC<Props> = ({ setDifficulty, setTotalQuestions }) => {
       </Form.Select>
 
       <Form.Select
+        size="lg"
         aria-label="Default select example"
         onChange={(e) => setTotalQuestions(Number(e.target.value))}
       >

@@ -1,17 +1,10 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
-import Stack from "react-bootstrap/Stack";
+import { useState } from "react";
 import QuestionsCard from "./components/QestionsCard";
 import Button from "react-bootstrap/esm/Button";
 import SelectArea from "./components/SelectArea";
 import { Container } from "react-bootstrap";
-
-// enum Difficulty {
-//   EASY = "easy",
-//   MEDIUM = "medium",
-//   HARD = "hard",
-// }
 
 function App() {
   const [questions, setQuestions] = useState<QuestionState[]>([]);
@@ -31,15 +24,11 @@ function App() {
     setLoading(false);
   };
 
-  // useEffect(() => {
-  //   getQuiz();
-  // }, []);
-
-  console.log(totalQuestions);
-  console.log(difficulty);
-
   return (
-    <Container className="d-flex flex-column text-center gap-3 h-75 align-items-center justify-content-center bg-light ">
+    <Container
+      className="d-flex flex-column text-center gap-3 w-50 py-5 align-items-center justify-content-center bg-light shadow rounded"
+      style={{ minWidth: "23rem" }}
+    >
       <h2>QUIZ GAME</h2>
       {!start && (
         <div className="">
@@ -48,6 +37,7 @@ function App() {
             setTotalQuestions={setTotalQuestions}
           />
           <Button
+            size="lg"
             className="mt-3"
             variant="info"
             onClick={() => getQuiz(totalQuestions, difficulty)}

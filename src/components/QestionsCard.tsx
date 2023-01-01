@@ -1,5 +1,4 @@
-import { Button } from "react-bootstrap";
-import Stack from "react-bootstrap/Stack";
+import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -19,13 +18,13 @@ const QestionsCard: React.FC<Props> = ({
   setStart,
   loading,
 }) => {
-  const [correct, setCorrect] = useState(false);
   const [click, setClick] = useState(false);
   const [answers, setAnswers] = useState<string[]>();
+  const [score, setScore] = useState(0);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setClick(true);
-    // e.currentTarget.style.backgroundColor = "red";
+    e.currentTarget.value === questions.correct_answer && setScore(score + 1);
   };
 
   const handleNext = () => {
@@ -56,20 +55,23 @@ const QestionsCard: React.FC<Props> = ({
       {!loading && (
         <div className="d-flex flex-column w-75" style={{ maxWidth: "35rem" }}>
           <p>
+            Score: <span>{score}</span>
+          </p>
+          <p>
             Question {questionNum + 1} / {totalQuestions}
           </p>
+
           <p>{questions?.question}</p>
           {answers?.map((answer, index) => (
             <Button
+              size="lg"
               key={index}
               disabled={click}
               value={answer}
-              variant="outline-secondary"
+              variant="outline-dark"
               onClick={handleClick}
               className={
-                click && answer == questions.correct_answer
-                  ? "bg-success"
-                  : "bg-dark"
+                click && answer === questions.correct_answer ? "bg-success" : ""
               }
             >
               {answer}
@@ -77,11 +79,15 @@ const QestionsCard: React.FC<Props> = ({
           ))}
 
           {questionNum + 1 !== totalQuestions && (
-            <Button onClick={handleNext}>Next Question</Button>
+            <Button variant="info" size="lg" onClick={handleNext}>
+              Next Question
+            </Button>
           )}
 
           {questionNum + 1 === totalQuestions && click && (
-            <Button onClick={handleRestart}>Restart</Button>
+            <Button variant="warning" size="lg" onClick={handleRestart}>
+              Restart
+            </Button>
           )}
         </div>
       )}
