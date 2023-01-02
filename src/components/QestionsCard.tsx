@@ -49,6 +49,14 @@ const QestionsCard: React.FC<Props> = ({
       );
   }, [questions]);
 
+  console.log(questions?.question);
+
+  const newQuestion = questions?.question
+    .replaceAll("&quot;", "`")
+    .replaceAll("&#039;", "'");
+
+  console.log(newQuestion);
+
   return (
     <>
       {loading && <h5>Loading...</h5>}
@@ -61,7 +69,7 @@ const QestionsCard: React.FC<Props> = ({
             Question {questionNum + 1} / {totalQuestions}
           </p>
 
-          <p>{questions?.question}</p>
+          <h4 className="pb-2">{newQuestion}</h4>
           {answers?.map((answer, index) => (
             <Button
               size="lg"
